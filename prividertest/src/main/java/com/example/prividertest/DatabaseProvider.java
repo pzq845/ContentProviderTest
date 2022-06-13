@@ -23,6 +23,24 @@ public class DatabaseProvider extends ContentProvider {
         uriMatcher.addURI(AUTHORITY,"contacts/#",CONTACTS_ITEM);
     }
 
+    @Override
+    public Cursor query(Uri uri, String[] projection, String selection,
+                        String[] selectionArgs, String sortOrder) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = null;
+        switch (uriMatcher.match(uri)){
+            case CONTACTS_DIR:
+                cursor = db.query("contacts",projection,selection,selectionArgs,null,null,sortOrder);
+                break;
+            case CONTACTS_ITEM:
+                cursor = db.query("contacts",projection,"id = ?",new String[]{"id"},null,null,sortOrder);
+                break;
+            default:
+                break;
+        }
+        return cursor;
+    }
+
     public DatabaseProvider() {
     }
 
@@ -52,24 +70,6 @@ public class DatabaseProvider extends ContentProvider {
         return true;
     }
 
-    @Override
-    public Cursor query(Uri uri, String[] projection, String selection,
-                        String[] selectionArgs, String sortOrder) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = null;
-        switch (uriMatcher.match(uri)){
-            case CONTACTS_DIR:
-                cursor = db.query("contacts",projection,selection,selectionArgs,null,null,sortOrder);
-                break;
-            case CONTACTS_ITEM:
-                cursor = db.query("contacts",projection,"id = ?",new String[]{"id"},null,null,sortOrder);
-                break;
-            default:
-                break;
-        }
-        return cursor;
-
-    }
 
     @Override
     public int update(Uri uri, ContentValues values, String selection,

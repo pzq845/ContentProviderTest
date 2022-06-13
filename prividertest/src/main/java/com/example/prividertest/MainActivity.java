@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, "onClick: "+contacts.getString(1));
                     }
                 }
-
             }
         });
     }

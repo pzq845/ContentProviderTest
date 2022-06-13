@@ -19,7 +19,6 @@ public class ContactsAdapter extends ArrayAdapter<String> {
         super(context,textViewResourceId,contacts);
         this.resourceId = textViewResourceId;
     }
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -38,9 +37,7 @@ public class ContactsAdapter extends ArrayAdapter<String> {
         viewHolder.contacts.setText(String.valueOf(contact));
         return view;
     }
-
     class ViewHolder {
         public TextView contacts;
     }
-
 }
